@@ -1,6 +1,9 @@
 import Garden from './components/Garden';
 
 export default function App() {
+
+  const habitNames = ["Run", "Read", "Clean", "Sleep Well"];
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
@@ -15,11 +18,11 @@ export default function App() {
       
       {/* Main Content */}
       <main className="flex-grow flex flex-col items-center justify-start py-8">
-        <Garden name="Run" />
-        <Garden name="Read" />
-        <Garden name="Clean" />
-        <Garden name="Sleep Well" />
+        {habitNames.map((name) => (
+          <Garden key={name} name={name} />
+        ))}
       </main>
+
 
       {/* Footer */}
       <footer className="text-center py-4 text-sm text-gray-500">

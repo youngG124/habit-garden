@@ -27,7 +27,7 @@ const Garden: React.FC<GardenProps> = ({ name }) => {
   }
 
   return (
-    <section className="w-full px-4 flex flex-col items-center">
+    <section className="w-full px-4 flex flex-col items-center mb-4">
       <div className="w-[845px] flex flex-col items-start">
         {/* 제목 + 버튼 */}
         <div className="w-full flex items-center justify-between mb-4">
