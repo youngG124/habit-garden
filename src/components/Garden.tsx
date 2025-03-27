@@ -1,5 +1,9 @@
 import GrassCell from './GrassCell';
 
+type GardenProps = {
+  name: string;
+};
+
 const getStartOfWeek = (date: Date) => {
   const day = date.getDay();
   const diff = (day === 0 ? -6 : 1 - day);
@@ -9,7 +13,7 @@ const getStartOfWeek = (date: Date) => {
   return start;
 };
 
-const Garden: React.FC = () => {
+const Garden: React.FC<GardenProps> = ({ name }) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -27,7 +31,7 @@ const Garden: React.FC = () => {
       <div className="w-[845px] flex flex-col items-start">
         {/* 제목 + 버튼 */}
         <div className="w-full flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-semibold">Run</h2>
+          <h2 className="text-2xl font-semibold">{name}</h2>
           <button className="px-3 py-1 text-sm font-bold bg-blue-400 rounded hover:bg-blue-600 transition">
           Water 💦
           </button>

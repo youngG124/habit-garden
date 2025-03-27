@@ -8,14 +8,17 @@ export default function App() {
         <div className="text-green-700 text-2xl font-bold flex items-center gap-2">          
           <span>Habit Garden</span><span>🌱</span>
         </div>
-        <p className="text-sm text-gray-500 italic">
+        <p className="text-sm text-gray-500">
           Grow your habits, day by day
         </p>
       </header>
       
       {/* Main Content */}
       <main className="flex-grow flex flex-col items-center justify-start py-8">
-        <Garden />
+        <Garden name="Run" />
+        <Garden name="Read" />
+        <Garden name="Clean" />
+        <Garden name="Sleep Well" />
       </main>
 
       {/* Footer */}
