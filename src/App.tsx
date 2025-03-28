@@ -17,7 +17,7 @@ export default function App() {
       </header>
       
       {/* Main Content */}
-      <main className="flex-grow flex flex-col items-center justify-start py-8">
+      <main className="flex-grow flex flex-col items-center justify-start py-4">
         {habitNames.map((name) => (
           <Garden key={name} name={name} />
         ))}
