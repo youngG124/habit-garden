@@ -4,7 +4,7 @@ import AddGardenModal from './components/AddGardenModal';
 
 export default function App() {
 
-  const [habitNames, setHabitNames] = useState(["Run", "Read", "Clean", "Sleep Well"]);
+  const [habitNames, setHabitNames] = useState(["Run", "Read", "Clean", "Sleep Early"]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAddGarden = (name: string) => {
@@ -14,7 +14,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
-      <header className="w-full px-6 py-6 flex justify-between items-center shadow p-4">
+      <header className="w-full px-4 py-4 flex justify-between items-center shadow p-4">
         <div className="text-green-700 text-2xl font-bold flex items-center gap-2">          
           <span>Habit Garden</span><span>🌱</span>
         </div>
@@ -29,7 +29,7 @@ export default function App() {
           <Garden key={name} name={name} />
         ))}
         <button
-          className="mt-4 px-4 py-2 rounded-xl bg-green-500 font-bold hover:bg-green-600 transition"
+          className="mt-4 px-4 py-2 rounded-xl bg-green-400 font-bold hover:bg-green-600 transition"
           onClick={() => setIsModalOpen(true)}
         >
           + Add New Garden
