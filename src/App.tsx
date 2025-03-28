@@ -12,7 +12,7 @@ export default function App() {
           <span>Habit Garden</span><span>🌱</span>
         </div>
         <p className="text-sm text-gray-500">
-          Grow your habits, day by day
+          Grow your habits,<br/> day by day
         </p>
       </header>
       

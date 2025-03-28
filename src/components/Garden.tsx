@@ -27,8 +27,8 @@ const Garden: React.FC<GardenProps> = ({ name }) => {
   }
 
   return (
-    <section className="w-full px-4 flex flex-col items-center mb-4">
-      <div className="w-[845px] flex flex-col items-start">
+    <section className="w-full max-w-screen-lg px-4 flex flex-col items-center mb-4">
+      <div className="w-full flex flex-col items-start">
         {/* 제목 + 버튼 */}
         <div className="w-full flex items-center justify-between mb-4">
           <h2 className="text-2xl font-semibold">{name}</h2>
@@ -37,12 +37,14 @@ const Garden: React.FC<GardenProps> = ({ name }) => {
           </button>
         </div>
 
-        {/* 잔디 그리드 */}
-        <div className="grid grid-rows-7 grid-flow-col gap-[2px] mb-4">
-          {days.map((date) => (
-            <GrassCell key={date.toISOString()} date={date} />
-          ))}
-        </div>
+        <div className="w-full overflow-x-auto">
+          {/* 잔디 그리드 */}
+          <div className="grid grid-rows-7 grid-flow-col gap-[1px] mb-4 overflow-x-auto">
+            {days.map((date) => (
+              <GrassCell key={date.toISOString()} date={date} />
+            ))}
+          </div>
+        </div>        
       </div>
     </section>
   );
