@@ -1,4 +1,6 @@
 import GrassCell from './GrassCell';
+import NoteModal from './NoteModal';
+import { useState } from 'react';
 
 type GardenProps = {
   name: string;
@@ -14,6 +16,9 @@ const getStartOfWeek = (date: Date) => {
 };
 
 const Garden: React.FC<GardenProps> = ({ name }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [note, setNote] = useState('');
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -26,13 +31,21 @@ const Garden: React.FC<GardenProps> = ({ name }) => {
     days.push(new Date(d));
   }
 
+  const handleSaveNote = () => {
+    console.log('saving : ' + note);
+    setIsModalOpen(false);
+    setNote('');
+  }
+
   return (
     <section className="w-full max-w-screen-lg px-2 flex flex-col items-center mb-4">
       <div className="w-full flex flex-col items-start">
         {/* 제목 + 버튼 */}
         <div className="w-full flex items-center justify-between mb-4">
           <h2 className="text-2xl font-semibold">{name}</h2>
-          <button className="px-3 py-1 text-sm font-bold bg-blue-400 rounded hover:bg-blue-600 transition">
+          <button
+          onClick={() => setIsModalOpen(true)}
+          className="px-3 py-1 text-sm font-bold bg-blue-400 rounded hover:bg-blue-600 transition">
           Water 💦
           </button>
         </div>
@@ -46,6 +59,14 @@ const Garden: React.FC<GardenProps> = ({ name }) => {
           </div>
         </div>        
       </div>
+
+      {isModalOpen && (
+        <NoteModal
+          note={note}
+          onChange={setNote}
+          onCancel={() => setIsModalOpen(false)}
+          onSave={handleSaveNote}/>
+      )}
     </section>
   );
 };
