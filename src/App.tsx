@@ -4,7 +4,7 @@ import AddGardenModal from './components/AddGardenModal';
 
 export default function App() {
 
-  const [habitNames, setHabitNames] = useState(["Run", "Read", "Clean", "Sleep Early"]);
+  const [habitNames, setHabitNames] = useState(["Run", "Read", "Strength"]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAddGarden = (name: string) => {
