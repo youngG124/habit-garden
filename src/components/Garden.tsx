@@ -22,7 +22,10 @@ const getStartOfWeek = (date: Date) => {
 };
 
 const Garden: React.FC<GardenProps> = ({ name, logs }) => {
-  console.log(logs);
+
+  const loggedDates = new Set(logs.map(log => log.date));
+  console.log(loggedDates);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [note, setNote] = useState('');
 
@@ -81,9 +84,15 @@ const Garden: React.FC<GardenProps> = ({ name, logs }) => {
         <div className="w-full overflow-x-auto">
           {/* 잔디 그리드 */}
           <div className="grid grid-rows-7 grid-flow-col gap-[1px] mb-4 overflow-x-auto">
-            {days.map((date) => (
-              <GrassCell key={date.toISOString()} date={date} />
-            ))}
+            {days.map((date) => {
+              const isLogged = loggedDates.has(formatDate(date));
+              if(isLogged) {
+                console.log('logged : ' + formatDate(date));
+              }              
+              return(
+                <GrassCell key={date.toISOString()} date={date} isLogged={isLogged}/>
+              );
+            })}
           </div>
         </div>        
       </div>
@@ -100,3 +109,10 @@ const Garden: React.FC<GardenProps> = ({ name, logs }) => {
 };
 
 export default Garden;
+
+const formatDate = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // 0-based
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
