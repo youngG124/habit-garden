@@ -31,10 +31,31 @@ const Garden: React.FC<GardenProps> = ({ name }) => {
     days.push(new Date(d));
   }
 
-  const handleSaveNote = () => {
-    console.log('saving : ' + note);
-    setIsModalOpen(false);
-    setNote('');
+  const handleSaveNote = async () => {
+    try {
+      console.log('name : ' + name);
+      console.log('note : ' + note);
+      const response = await fetch('http://localhost:3000/api/disciplines', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, note: note.trim() || null }),
+      });
+
+      if(!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to crate habit log');
+      }
+
+      const result = await response.json();
+      console.log(result);
+      setIsModalOpen(false);
+      setNote('');
+
+    } catch (err: any) {
+      console.error(err.message);
+    }
   }
 
   return (

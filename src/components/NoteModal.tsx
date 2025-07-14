@@ -27,7 +27,7 @@ const NoteModal: React.FC<NoteModalProps> = ({ note, onChange, onCancel, onSave 
             onClick={onSave}
             className="px-3 py-1 text-sm rounded bg-blue-500 text-white hover:bg-blue-600"
           >
-            Save
+            Water
           </button>
         </div>
       </div>
