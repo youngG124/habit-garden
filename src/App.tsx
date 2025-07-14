@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Garden from './components/Garden';
 import AddGardenModal from './components/AddGardenModal';
+import axios from 'axios';
 
 type Log = {
   habit_name : string;
@@ -20,8 +21,8 @@ export default function App() {
   useEffect(() => {
     const fetchAllLogs = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/disciplines");
-        const data : Log[] = await res.json();
+        const res = await axios.get("http://localhost:3000/api/disciplines");
+        const data : Log[] = await res.data();
 
         const grouped: Record<string, Log[]> = {};
 

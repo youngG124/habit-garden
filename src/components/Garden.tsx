@@ -1,6 +1,7 @@
 import GrassCell from './GrassCell';
 import NoteModal from './NoteModal';
 import { useState } from 'react';
+import axios from 'axios';
 
 type Log = {
   date: string;
@@ -45,26 +46,19 @@ const Garden: React.FC<GardenProps> = ({ name, logs }) => {
     try {
       console.log('name : ' + name);
       console.log('note : ' + note);
-      const response = await fetch('http://localhost:3000/api/disciplines', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, note: note.trim() || null }),
+      const response = await axios.post('http://localhost:3000/api/disciplines', {
+        name,
+        note: note.trim() || null
       });
 
-      if(!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to crate habit log');
-      }
-
-      const result = await response.json();
+      const result = await response.data();
       console.log(result);
       setIsModalOpen(false);
       setNote('');
 
-    } catch (err: any) {
-      console.error(err.message);
+    } catch (error: any) {
+      const message = error.response?.data?.message || 'Failed to create habit log';
+      throw new Error(message);
     }
   }
 
