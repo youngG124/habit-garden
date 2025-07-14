@@ -1,15 +1,55 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Garden from './components/Garden';
 import AddGardenModal from './components/AddGardenModal';
 
-export default function App() {
+type Log = {
+  habit_name : string;
+  date: string;
+  not?: string | null;
+}
 
+export default function App() {
   const [habitNames, setHabitNames] = useState(["Run", "Read", "Strength"]);
+  const [habitLogs, setHabitLogs] = useState<Record<string, Log[]>>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAddGarden = (name: string) => {
     setHabitNames([...habitNames, name]);
   };
+
+  useEffect(() => {
+    const fetchAllLogs = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/api/disciplines");
+        const data : Log[] = await res.json();
+
+        const grouped: Record<string, Log[]> = {};
+
+        for (const log of data) {
+          const dateObj = new Date(log.date);
+          const formattedDate = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString()
+            .padStart(2, '0')}-${dateObj.getDate().toString().padStart(2, '0')}`;
+
+          const logWithFormattedDate: Log = {
+            ...log,
+            date: formattedDate,
+          };
+
+          if (!grouped[log.habit_name]) {
+            grouped[log.habit_name] = [];
+          }
+
+          grouped[log.habit_name].push(logWithFormattedDate);
+        }
+        
+        setHabitLogs(grouped);
+      } catch (err) {
+        console.error('API fetch error : ' + err);
+      }
+    };
+
+    fetchAllLogs();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -26,7 +66,7 @@ export default function App() {
       {/* Main Content */}
       <main className="flex-grow flex flex-col items-center justify-start py-4">
         {habitNames.map((name) => (
-          <Garden key={name} name={name} />
+          <Garden key={name} name={name} logs={habitLogs[name] || []} />
         ))}
         <button
           className="mt-4 px-4 py-2 rounded-xl bg-green-400 font-bold hover:bg-green-600 transition"

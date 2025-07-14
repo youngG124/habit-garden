@@ -2,8 +2,14 @@ import GrassCell from './GrassCell';
 import NoteModal from './NoteModal';
 import { useState } from 'react';
 
+type Log = {
+  date: string;
+  note?: string | null;
+};
+
 type GardenProps = {
   name: string;
+  logs: Log[];
 };
 
 const getStartOfWeek = (date: Date) => {
@@ -15,7 +21,8 @@ const getStartOfWeek = (date: Date) => {
   return start;
 };
 
-const Garden: React.FC<GardenProps> = ({ name }) => {
+const Garden: React.FC<GardenProps> = ({ name, logs }) => {
+  console.log(logs);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [note, setNote] = useState('');
 
