@@ -21,8 +21,11 @@ export default function App() {
   useEffect(() => {
     const fetchAllLogs = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/disciplines");
-        const data : Log[] = await res.data();
+        //const res = await axios.get("/api/disciplines");
+        const ip = 'http://localhost:3000';
+        const ip2 = '/grass-api';
+        const res = await axios.get(ip2 + '/api/disciplines');
+        const data : Log[] = await res.data;
 
         const grouped: Record<string, Log[]> = {};
 

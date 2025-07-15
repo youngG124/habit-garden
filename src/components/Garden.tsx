@@ -46,12 +46,14 @@ const Garden: React.FC<GardenProps> = ({ name, logs }) => {
     try {
       console.log('name : ' + name);
       console.log('note : ' + note);
-      const response = await axios.post('http://localhost:3000/api/disciplines', {
+      const ip = 'http://localhost:3000';
+      const ip2 = '/grass-api'
+      const response = await axios.post(ip2 + '/api/disciplines', {
         name,
         note: note.trim() || null
       });
 
-      const result = await response.data();
+      const result = await response.data;
       console.log(result);
       setIsModalOpen(false);
       setNote('');
